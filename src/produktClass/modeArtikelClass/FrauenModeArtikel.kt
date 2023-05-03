@@ -1,4 +1,4 @@
-package produktClass
+package produktClass.modeArtikelClass
 
 class FrauenModeArtikel {
 }

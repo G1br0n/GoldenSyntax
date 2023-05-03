@@ -1,5 +1,8 @@
-package produktClass
+package produktClass.modeArtikelClass
 
-open class ModeArtikel(id: Int, name: String, price: Double, art: String): Produckt(id,name,price,art) {
+import produktClass.Produkt
+import java.io.File
+
+open class ModeArtikel(dataFile: File): Produkt(dataFile) {
 
 }

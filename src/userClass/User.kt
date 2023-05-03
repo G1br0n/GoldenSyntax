@@ -1,4 +1,4 @@
 package userClass
 
-class User {
+open class User(var userName: String, statusUser: String) {
 }
