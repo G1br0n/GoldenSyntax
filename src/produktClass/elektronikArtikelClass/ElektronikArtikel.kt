@@ -1,6 +1,7 @@
 package produktClass.elektronikArtikelClass
 
-import produktClass.Produckt
+import produktClass.Produkt
 
-class ElektronicalArtikel(id: Int, name: String, price: Double, art: String): Produckt(id,name,price,art) {
+open class ElektronikArtikel(id: Int, name: String, price: Double, art: String): Produkt(id,name,price,art) {
+
 }

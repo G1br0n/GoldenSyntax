@@ -1,4 +1,4 @@
-package vesitorClass
+package userClass
 
-class Vesitor {
+class Visitor {
 }

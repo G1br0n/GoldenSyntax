@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Golden Syntax.iml" filepath="$PROJECT_DIR$/Golden Syntax.iml" />
+      <module fileurl="file://$PROJECT_DIR$/GoldenSyntax.iml" filepath="$PROJECT_DIR$/GoldenSyntax.iml" />
     </modules>
   </component>
 </project>
