@@ -9,15 +9,16 @@ open class ElektronikArtikel(dateFile: File): Produkt(dateFile) {
 
     private val garantieZeitListe: MutableList<Int> = mutableListOf()
     private val garantieBooleansListe: MutableList<Boolean> = mutableListOf()
-    //TODO zeit berechenen
+
+    // TODO: zeit berechenen
 
     init {
         dateFile.forEachLine { garantieListe.add(it)}
 
         for (i in garantieListe.indices) {
 
-            this.garantieZeitListe.add(garantieListe[i].split(" ")[7].toInt())
-            this.garantieBooleansListe.add(garantieListe[i].split(" ")[8].toBoolean())
+            this.garantieZeitListe.add(garantieListe[i].split(" ")[6].toInt())
+            this.garantieBooleansListe.add(garantieListe[i].split(" ")[7].toBoolean())
         }
     }
 
@@ -27,6 +28,7 @@ open class ElektronikArtikel(dateFile: File): Produkt(dateFile) {
     fun returnGarantieBooleans(): MutableList<Boolean> {
         return garantieBooleansListe
     }
+
 
 
 }
