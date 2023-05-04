@@ -17,14 +17,14 @@ open class Produkt(private val dateFile: File) {
         this.dateFile.forEachLine { produktList.add(it) }
 
         for (i in produktList){
+
             this.idProduktList.add(i.split(" ")[0].toInt())
             this.nameProduktList.add(i.split(" ")[1] + " " + i.split(" ")[2])
             this.priceProduktList.add(i.split(" ")[3].toDouble())
             this.artProduktList.add(i.split(" ")[4])
-            this.lagerBestandList.add(i.split(" ")[4].toInt())
+            this.lagerBestandList.add(i.split(" ")[5].toInt())
             //TODO: this.kundenRezensionList.add(i.split(" ")[i.lastIndex])
         }
-
     }
 
     fun returnProduktList(): MutableList<String> {
@@ -51,21 +51,82 @@ open class Produkt(private val dateFile: File) {
         return lagerBestandList.toMutableList()
     }
 
+
+
+
     fun returnSortedByPriceProduktList(): MutableList<Int> {
-        val produktDetailsListe = idProduktList.zip(nameProduktList)
-        var produktReturnListe = mutableListOf<Int>()
-        produktDetailsListe.sortedBy { it.second }
-        for (id in produktDetailsListe ){
-            produktReturnListe.add(id.first)
+        val produktDetailsListe: List<Pair<Double,Int>> = priceProduktList.zip(idProduktList)
+        val produktIdReturnListe = mutableListOf<Int>()
+
+        for (id in produktDetailsListe.sortedBy() { it.first } ){
+            produktIdReturnListe.add(id.second)
         }
-        return produktReturnListe
+        return produktIdReturnListe
     }
 
+    fun returnSortedByNameProduktList(): MutableList<Int> {
+        val produktDetailsListe = nameProduktList.zip(idProduktList)
+        val produktIdReturnListe = mutableListOf<Int>()
+        for (id in produktDetailsListe.sortedBy() { it.first } ){
+            produktIdReturnListe.add(id.second)
+        }
+        return produktIdReturnListe
+    }
 
+    fun returnSortedByLagerBestandList(): MutableList<Int> {
+        val produktDetailsListe = lagerBestandList.zip(idProduktList)
+        val produktIdReturnListe = mutableListOf<Int>()
+        for (id in produktDetailsListe.sortedBy() { it.first } ){
+            produktIdReturnListe.add(id.second)
+        }
+        return produktIdReturnListe
+    }
 
+    fun returnSortedByIdProduktList(): MutableList<Int> {
+        val produktDetailsListe = idProduktList.zip(nameProduktList)
+        val produktIdReturnListe = mutableListOf<Int>()
+        for (id in produktDetailsListe.sortedBy() { it.first } ){
+            produktIdReturnListe.add(id.first)
+        }
+        return produktIdReturnListe
+    }
 
+    fun printSortedByPriceProduktList(){
+        val sortedListe = returnSortedByPriceProduktList()
 
+        println("\nSortiere Liste nach Preis:")
+        Thread.sleep(1000)
+        for (i in sortedListe){
+            val index = idProduktList.indexOf(i)
+            println("${idProduktList[index]} ${nameProduktList[index]} ${priceProduktList[index]} ${artProduktList[index]}")
+            Thread.sleep(500)
+        }
 
+    }
+
+    fun printSortedByNameProduktList(){
+        val sortedListe = returnSortedByNameProduktList()
+
+        println("\nSortiere Liste nach Name:")
+        Thread.sleep(1000)
+        for (i in sortedListe){
+            val index = idProduktList.indexOf(i)
+            println("${idProduktList[index]} ${nameProduktList[index]} ${priceProduktList[index]} ${artProduktList[index]}")
+            Thread.sleep(500)
+        }
+    }
+
+    fun printSortedByLagerBestandList(){
+        val sortedListe = returnSortedByLagerBestandList()
+
+        println("\nSortiere Liste nach Lager Bestand:")
+        Thread.sleep(1000)
+        for (i in sortedListe){
+            val index = idProduktList.indexOf(i)
+            println("${idProduktList[index]} ${nameProduktList[index]} ${priceProduktList[index]} ${artProduktList[index]}")
+            Thread.sleep(500)
+        }
+    }
 
 }
 

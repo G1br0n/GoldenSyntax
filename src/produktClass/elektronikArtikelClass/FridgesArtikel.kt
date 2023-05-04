@@ -1,6 +1,8 @@
 package produktClass.elektronikArtikelClass
 
-class FridgesArtikel(id: Int,name: String,price: Double,art: String): ElektronikArtikel(id,name,price,art) {
+import java.io.File
+
+class FridgesArtikel(dateFile: File): ElektronikArtikel(dateFile) {
 
     var fridgesPrivatSizeListe: MutableList<Int> = mutableListOf()
     var fridgesFabrikSizeListe: MutableList<Int> = mutableListOf()

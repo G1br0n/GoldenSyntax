@@ -1,7 +1,8 @@
 package produktClass.elektronikArtikelClass
 
 import produktClass.Produkt
+import java.io.File
 
-open class ElektronikArtikel(id: Int, name: String, price: Double, art: String): Produkt(id,name,price,art) {
+open class ElektronikArtikel(dateFile: File): Produkt(dateFile) {
 
 }
