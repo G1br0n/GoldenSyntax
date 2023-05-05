@@ -3,7 +3,7 @@ import java.io.File
 
 
 open class Produkt(private val dateFile: File) {
-    val header: List<String> = listOf("ID", "Name", "Price", "Art", "Artikel im Lager")
+    private val header: List<String> = listOf("ID", "Name", "Price", "Art", "Artikel im Lager")
 
     private var produktList: MutableList<String> = mutableListOf()
 
@@ -52,33 +52,33 @@ open class Produkt(private val dateFile: File) {
         return artProduktList.toMutableList()
     }
 
-    fun returnLagerBestandList(): MutableList<Int> {
+   fun returnLagerBestandList(): MutableList<Int> {
         return lagerBestandList.toMutableList()
     }
 
     //------Return methoden mit sortierten Listen-----------------------------------------------------------------------
 
-    fun returnSortedByIdProduktList(): MutableList<Int> {
+    fun returnSortedByIdProduktList(): MutableList<Any> {
         val produktDetailsListe = idProduktList.zip(nameProduktList)
-        val produktIdReturnListe = mutableListOf<Int>()
+        val produktIdReturnListe = mutableListOf<Any>()
         for (id in produktDetailsListe.sortedBy() { it.first } ){
             produktIdReturnListe.add(id.first)
         }
         return produktIdReturnListe
     }
 
-    fun returnSortedByNameProduktList(): MutableList<Int> {
+    fun returnSortedByNameProduktList(): MutableList<Any> {
         val produktDetailsListe = nameProduktList.zip(idProduktList)
-        val produktIdReturnListe = mutableListOf<Int>()
+        val produktIdReturnListe = mutableListOf<Any>()
         for (id in produktDetailsListe.sortedBy() { it.first } ){
             produktIdReturnListe.add(id.second)
         }
         return produktIdReturnListe
     }
 
-    fun returnSortedByPriceProduktList(): MutableList<Int> {
+    fun returnSortedByPriceProduktList(): MutableList<Any> {
         val produktDetailsListe: List<Pair<Double,Int>> = priceProduktList.zip(idProduktList)
-        val produktIdReturnListe = mutableListOf<Int>()
+        val produktIdReturnListe = mutableListOf<Any>()
 
         for (id in produktDetailsListe.sortedBy() { it.first } ){
             produktIdReturnListe.add(id.second)
@@ -86,9 +86,9 @@ open class Produkt(private val dateFile: File) {
         return produktIdReturnListe
     }
 
-    fun returnSortedByLagerBestandList(): MutableList<Int> {
+    fun returnSortedByLagerBestandList(): MutableList<Any> {
         val produktDetailsListe = lagerBestandList.zip(idProduktList)
-        val produktIdReturnListe = mutableListOf<Int>()
+        val produktIdReturnListe = mutableListOf<Any>()
         for (id in produktDetailsListe.sortedBy() { it.first } ){
             produktIdReturnListe.add(id.second)
         }
@@ -102,71 +102,22 @@ open class Produkt(private val dateFile: File) {
 
         println("\nSortiere Liste nach ID:")
         Thread.sleep(1000)
+
         val header: List<String> = this.header
+        val listListIntern = returnListList(sortedListe)
 
-        val listList: MutableList<List<String>> = mutableListOf()
-
-        val idProduktListInt = mutableListOf<String>()
-        val nameProduktListInt = mutableListOf<String>()
-        val priceProduktListInt = mutableListOf<String>()
-        val artProduktListInt = mutableListOf<String>()
-        val lagerBestandListInt = mutableListOf<String>()
-
-
-        for (i in sortedListe){
-            val index = idProduktList.indexOf(i)
-
-            idProduktListInt.add(idProduktList[index].toString())
-            nameProduktListInt.add(nameProduktList[index])
-            priceProduktListInt.add(priceProduktList[index].toString())
-            artProduktListInt.add(artProduktList[index])
-            lagerBestandListInt.add(lagerBestandList[index].toString() + " Stück")
-
-        }
-
-        listList.add(idProduktListInt)
-        listList.add(nameProduktListInt)
-        listList.add(priceProduktListInt)
-        listList.add(artProduktListInt)
-        listList.add(lagerBestandListInt)
-
-        printTable(header,listList)
+        printTable(header,listListIntern)
     }
 
     fun printSortedByNameProduktList(){
-        val sortedListe = returnSortedByNameProduktList()
+        val sortedListe:MutableList<Any> = returnSortedByNameProduktList()
 
         println("\nSortiere Liste nach Name:")
         Thread.sleep(1000)
-        val header: List<String> = this.header
 
-        val listList: MutableList<List<String>> = mutableListOf()
+        val listListIntern = returnListList(sortedListe)
 
-        val idProduktListInt = mutableListOf<String>()
-        val nameProduktListInt = mutableListOf<String>()
-        val priceProduktListInt = mutableListOf<String>()
-        val artProduktListInt = mutableListOf<String>()
-        val lagerBestandListInt = mutableListOf<String>()
-
-
-        for (i in sortedListe){
-            val index = idProduktList.indexOf(i)
-
-            idProduktListInt.add(idProduktList[index].toString())
-            nameProduktListInt.add(nameProduktList[index])
-            priceProduktListInt.add(priceProduktList[index].toString())
-            artProduktListInt.add(artProduktList[index])
-            lagerBestandListInt.add(lagerBestandList[index].toString())
-
-        }
-
-        listList.add(idProduktListInt)
-        listList.add(nameProduktListInt)
-        listList.add(priceProduktListInt)
-        listList.add(artProduktListInt)
-        listList.add(lagerBestandListInt)
-
-        printTable(header,listList)
+        printTable(header,listListIntern)
     }
 
     fun printSortedByPriceProduktList(){
@@ -174,71 +125,25 @@ open class Produkt(private val dateFile: File) {
 
         println("\nSortiere Liste nach Preis:")
         Thread.sleep(1000)
+
         val header: List<String> = this.header
 
-        val listList: MutableList<List<String>> = mutableListOf()
+        val listListIntern = returnListList(sortedListe)
 
-        val idProduktListInt = mutableListOf<String>()
-        val nameProduktListInt = mutableListOf<String>()
-        val priceProduktListInt = mutableListOf<String>()
-        val artProduktListInt = mutableListOf<String>()
-        val lagerBestandListInt = mutableListOf<String>()
-
-
-        for (i in sortedListe){
-            val index = idProduktList.indexOf(i)
-
-            idProduktListInt.add(idProduktList[index].toString())
-            nameProduktListInt.add(nameProduktList[index])
-            priceProduktListInt.add(priceProduktList[index].toString())
-            artProduktListInt.add(artProduktList[index])
-            lagerBestandListInt.add(lagerBestandList[index].toString())
-
-        }
-
-        listList.add(idProduktListInt)
-        listList.add(nameProduktListInt)
-        listList.add(priceProduktListInt)
-        listList.add(artProduktListInt)
-        listList.add(lagerBestandListInt)
-
-        printTable(header,listList)
+        printTable(header,listListIntern)
 
     }
 
     fun printSortedByLagerBestandList(){
         println("\nSortiere Liste nach Lager Bestand:")
+        Thread.sleep(1000)
 
         val sortedListe = returnSortedByLagerBestandList()
         val header: List<String> = this.header
 
-        val listList: MutableList<List<String>> = mutableListOf()
+        val listListIntern = returnListList(sortedListe)
 
-        val idProduktListInt = mutableListOf<String>()
-        val nameProduktListInt = mutableListOf<String>()
-        val priceProduktListInt = mutableListOf<String>()
-        val artProduktListInt = mutableListOf<String>()
-        val lagerBestandListInt = mutableListOf<String>()
-
-        Thread.sleep(1000)
-        for (i in sortedListe){
-            val index = idProduktList.indexOf(i)
-
-            idProduktListInt.add(idProduktList[index].toString())
-            nameProduktListInt.add(nameProduktList[index])
-            priceProduktListInt.add(priceProduktList[index].toString())
-            artProduktListInt.add(artProduktList[index])
-            lagerBestandListInt.add(lagerBestandList[index].toString())
-
-        }
-
-        listList.add(idProduktListInt)
-        listList.add(nameProduktListInt)
-        listList.add(priceProduktListInt)
-        listList.add(artProduktListInt)
-        listList.add(lagerBestandListInt)
-
-        printTable(header,listList)
+        printTable(header,listListIntern)
     }
 
     //------ab hier private methoden------------------------------------------------------------------------------------
@@ -276,6 +181,38 @@ open class Produkt(private val dateFile: File) {
             Thread.sleep(250)
         }
     }
+
+    private fun returnListList(sortedListe: MutableList<Any>):List<List<String>> {
+
+        val listList: MutableList<List<String>> = mutableListOf()
+
+        val idProduktListInt = mutableListOf<String>()
+        val nameProduktListInt = mutableListOf<String>()
+        val priceProduktListInt = mutableListOf<String>()
+        val artProduktListInt = mutableListOf<String>()
+        val lagerBestandListInt = mutableListOf<String>()
+
+
+        for (i in sortedListe) {
+            val index = idProduktList.indexOf(i)
+
+            idProduktListInt.add(idProduktList[index].toString())
+            nameProduktListInt.add(nameProduktList[index])
+            priceProduktListInt.add(priceProduktList[index].toString())
+            artProduktListInt.add(artProduktList[index])
+            lagerBestandListInt.add(lagerBestandList[index].toString())
+
+        }
+
+        listList.add(idProduktListInt)
+        listList.add(nameProduktListInt)
+        listList.add(priceProduktListInt)
+        listList.add(artProduktListInt)
+        listList.add(lagerBestandListInt)
+        listList.toList()
+        return listList
+    }
+
 }
 
 

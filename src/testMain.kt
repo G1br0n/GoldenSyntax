@@ -5,8 +5,6 @@ import java.io.File
 fun main() {
     val testData: File = File("src/Data/ArtikelListen/tvListe")
 
-
-
     var test = ElektronikArtikel(testData).returnGarantieZeit()
 
     //for (i in ElektronikArtikel(testData).returnGarantieZeit()) println(i)
@@ -25,7 +23,6 @@ fun main() {
     //Produkt(testData).returnSortedByNameProduktList().forEach { println(it) }
     //Produkt(testData).returnSortedByPriceProduktList().forEach { println(it) }
     //Produkt(testData).returnSortedByLagerBestandList().forEach { println(it) }
-
 
     //TODO: printSortedBy" "Listen Methoden
     Produkt(testData).printSortedByIdProduktList()
