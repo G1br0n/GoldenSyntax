@@ -29,6 +29,18 @@ open class ElektronikArtikel(dateFile: File): Produkt(dateFile) {
         return garantieBooleansListe
     }
 
+    fun printGarantieZeitInfo(){
 
 
+        var garantieZeitIndex = searchAndPrintProdukt()
+
+        if (returnGarantieBooleans()[garantieZeitIndex]) {
+            println("| Die garantie Zeit für das produkt beträgt ${returnGarantieZeit()[garantieZeitIndex]} Jahre")
+        } else {
+            println("| Das ausgewählte produkt hat keine garantie zeit ")
+        }
+
+
+
+    }
 }

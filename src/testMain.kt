@@ -25,9 +25,14 @@ fun main() {
     //Produkt(testData).returnSortedByLagerBestandList().forEach { println(it) }
 
     //TODO: printSortedBy" "Listen Methoden
-    Produkt(testData).printSortedByIdProduktList()
-    Produkt(testData).printSortedByNameProduktList()
-    Produkt(testData).printSortedByPriceProduktList()
-    Produkt(testData).printSortedByLagerBestandList()
+    //Produkt(testData).printProduktList()
+    //Produkt(testData).printSortedByIdProduktList()
+    //Produkt(testData).printSortedByNameProduktList()
+    //Produkt(testData).printSortedByPriceProduktList()
+    //Produkt(testData).printSortedByLagerBestandList()
 
+    //Produkt(testData).searchAndPrintProdukt()
+
+    //TODO: Elektronik methoden
+    ElektronikArtikel(testData).printGarantieZeitInfo()
 }
