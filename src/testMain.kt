@@ -47,9 +47,10 @@ fun main() {
 
 
     // TODO: User
-    val testUserData: File = File("src/Data/UserListe/vesitorListe")
+    val testUserData: File = File("src/Data/UserListe/visitorListe")
 
-    User(testUserData).userLogin()
+    //User(testUserData).userLogin()
+    User(testUserData).userRegistrieren()
 
 }
 
