@@ -1,5 +1,7 @@
 import produktClass.Produkt
 import produktClass.elektronikArtikelClass.ElektronikArtikel
+import produktClass.elektronikArtikelClass.TvArtikel
+import userClass.User
 import java.io.File
 
 fun main() {
@@ -26,6 +28,7 @@ fun main() {
 
     //TODO: printSortedBy" "Listen Methoden
     //Produkt(testData).printProduktList()
+
     //Produkt(testData).printSortedByIdProduktList()
     //Produkt(testData).printSortedByNameProduktList()
     //Produkt(testData).printSortedByPriceProduktList()
@@ -34,5 +37,21 @@ fun main() {
     //Produkt(testData).searchAndPrintProdukt()
 
     //TODO: Elektronik methoden
-    ElektronikArtikel(testData).printGarantieZeitInfo()
+    //ElektronikArtikel(testData).printGarantieZeitInfo()
+    //ElektronikArtikel(testData).printTabelleGarantieZeitList()
+    //ElektronikArtikel(testData).printSortedTabelleGarantieZeitList()
+
+    // TODO: TrArtikel
+    //TvArtikel(testData).printKompletTvListe()
+    //TvArtikel(testData).printSortedKompletTvListe()
+
+
+    // TODO: User
+    val testUserData: File = File("src/Data/UserListe/vesitorListe")
+
+    User(testUserData).userLogin()
+
 }
+
+
+

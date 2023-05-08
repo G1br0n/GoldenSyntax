@@ -4,13 +4,13 @@ import java.io.File
 open class Produkt(private val dateFile: File) {
     var header: List<String> = listOf("ID", "Name", "Price", "Art", "Artikel im Lager")
 
-    private var produktList: MutableList<String> = mutableListOf()
+    var produktList: MutableList<String> = mutableListOf()
 
-    private var idProduktList: MutableList<Int> = mutableListOf()
-    private var nameProduktList:MutableList<String> = mutableListOf()
-    private var priceProduktList: MutableList<Double> = mutableListOf()
-    private var artProduktList: MutableList<String> = mutableListOf()
-    private var lagerBestandList: MutableList<Int> = mutableListOf()
+    var idProduktList: MutableList<Int> = mutableListOf()
+    var nameProduktList:MutableList<String> = mutableListOf()
+    var priceProduktList: MutableList<Double> = mutableListOf()
+    var artProduktList: MutableList<String> = mutableListOf()
+    var lagerBestandList: MutableList<Int> = mutableListOf()
     //TODO: private var kundenRezensionList: MutableList<String> = mutableListOf()
 
     //------Init Block erstellt listen aus dataFile---------------------------------------------------------------------
@@ -219,7 +219,7 @@ open class Produkt(private val dateFile: File) {
 
 
     //------ab hier private methoden------------------------------------------------------------------------------------
-    private fun printTable(headers: List<String>, values: List<List<String>>) {
+    fun printTable(headers: List<String>, values: List<List<String>>) {
         val columnWidths = IntArray(headers.size) { i -> headers[i].length }
 
         for (row in values) {
@@ -246,7 +246,7 @@ open class Produkt(private val dateFile: File) {
             Thread.sleep(250)
         }
     }
-    private fun returnListList(sortedListe: MutableList<Any>):List<List<String>> {
+    open fun returnListList(sortedListe: MutableList<Any>):List<List<String>> {
         val listList: MutableList<List<String>> = mutableListOf()
 
         val idProduktListInt = mutableListOf<String>()
@@ -274,7 +274,6 @@ open class Produkt(private val dateFile: File) {
         listList.toList()
         return listList
     }
-
 
 }
 
