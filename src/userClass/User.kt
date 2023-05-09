@@ -4,8 +4,8 @@ import java.io.File
 
 open class User(var userDataFile: File) {
 
-    private var userIdListe: MutableList<Int> = mutableListOf()
-    private var userNameListe: MutableList<String> = mutableListOf()
+    var userIdListe: MutableList<Int> = mutableListOf()
+    var userNameListe: MutableList<String> = mutableListOf()
     private var userPasswordListe: MutableList<String> = mutableListOf()
     private var userAgeListe: MutableList<Int> = mutableListOf()
 
@@ -16,7 +16,7 @@ open class User(var userDataFile: File) {
         userDataFile.forEachLine { userAgeListe . add (it.split(" ")[3].toInt())}
     }
 
-    fun userLogin(): Boolean{
+    fun userLogin(): Pair<Boolean,Int>{
         println("Willkommen zu OnlineStore von \"Golden Syntax\" \n\n")
         var idInput = ""
         var passwordInput = ""
@@ -75,7 +75,7 @@ open class User(var userDataFile: File) {
             }
 
         } while (passwordInput != userPasswordListe[userIdListe.indexOf(idInput.toInt())])
-        return loginCheck
+        return Pair(loginCheck,idInput.toInt())
     }
 
     fun userRegistrieren(){

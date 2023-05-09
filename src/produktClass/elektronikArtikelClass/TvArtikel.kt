@@ -25,6 +25,7 @@ class TvArtikel(dateFile: File): ElektronikArtikel(dateFile) {
 
 
     fun printKompletTvListe() {
+        println("\nTv Artikel Liste:")
         val sortedListe = returnIdProduktList()
         val listList: MutableList<List<String>> = mutableListOf()
 
@@ -60,7 +61,8 @@ class TvArtikel(dateFile: File): ElektronikArtikel(dateFile) {
         printTable(header, listList)
     }
 
-    fun printSortedKompletTvListe() {
+    fun printSortedByZolKompletTvListe() {
+        println("\nSortiere Liste nach Zol:")
         val sortedListe = returnSortedByZolListe()
         val listList: MutableList<List<String>> = mutableListOf()
 
