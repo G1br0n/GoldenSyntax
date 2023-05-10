@@ -4,6 +4,8 @@ import java.io.File
 
 open class User(var userDataFile: File) {
 
+
+    //TODO: Konto Löschen
     var userIdListe: MutableList<Int> = mutableListOf()
     var userNameListe: MutableList<String> = mutableListOf()
     private var userPasswordListe: MutableList<String> = mutableListOf()

@@ -1,25 +1,27 @@
 import produktClass.Produkt
 import produktClass.elektronikArtikelClass.TvArtikel
 import userClass.User
+import userClass.Visitor
 import java.io.File
 import kotlin.system.exitProcess
 
 
 fun main() {
     do {
-        val visitorDataFile: File = File("src/Data/UserListe/vesitorListe")
-        val tvDataFile: File = File("src/Data/UserListe/")
+        val visitorDataFile = File("src/Data/UserListe/visitorListe")
+
         Thread.sleep(500)
         println("\n\nWillkommen im Online Shop \"GoldenSyntax\"\n")
+
         Thread.sleep(500)
         println("Menü: \n1 -> Einlogen \n2 -> Registrieren \n\n0 -> Online Store Verlassen")
 
-        var input = readln()
-        var logInCheck = false
-        var idCheck = 0
+        val input = readln()
+        var logInCheck: Boolean
+        var idCheck: Int
 
         if (input == "1") {
-            var (logInCheckInput, idCheckInput) = User(visitorDataFile).userLogin()
+            val (logInCheckInput, idCheckInput) = User(visitorDataFile).userLogin()
 
             logInCheck = logInCheckInput
             idCheck = idCheckInput
@@ -55,8 +57,9 @@ fun main() {
 }
 
 fun storeMainScreen(userIdInput: Int, visitorDataFile: File) {
-    var tvArtikelListe = File("src/Data/ArtikelListen/tvListe")
 
+    val tvArtikelListe = File("src/Data/ArtikelListen/tvListe")
+    var visitorShoppingCart: MutableMap<Int, Int> = mutableMapOf()
 
     do {
         Thread.sleep(500)
@@ -69,7 +72,7 @@ fun storeMainScreen(userIdInput: Int, visitorDataFile: File) {
         )
 
         Thread.sleep(500)
-        println("Hauptmenü\n")
+        println("Hauptmenü:\n")
 
         Thread.sleep(500)
         println("Folgende Produkt Artikel haben wir für sie im auswahl:")
@@ -78,61 +81,69 @@ fun storeMainScreen(userIdInput: Int, visitorDataFile: File) {
         println("1 -> Elektronik Artikel \n2 -> Mode Artikel \n\n0 -> Ausloggen ")
         val inputHauptMenu = readln()
 
-        if (inputHauptMenu == "1") {
-            do {
+        while (inputHauptMenu == "1") {
+
+            Thread.sleep(500)
+            println("\n\nElektronil Artikel:\n")
+
+            Thread.sleep(500)
+            println("Folgende Elektronik Artikel haben wir für Sie im auswahl:\n")
+
+            Thread.sleep(500)
+            println("1 -> Tv Artikel \n2 -> Waschmaschinen \n\n0 -> Zu Haupt Menü ")
+            val inputElektronikArtikel = readln()
+
+            while (inputElektronikArtikel == "1") {
                 Thread.sleep(500)
-                println("\n\nElektronil Artikel:\n")
+                println("\nTv Artikel Menü:\n")
 
                 Thread.sleep(500)
-                println("Folgende Elektronik Artikel haben wir für Sie im auswahl:\n")
+                println("1 -> Alle Tv Artekel Ansehen")
 
                 Thread.sleep(500)
-                println("1 -> Tv Artikel \n2 -> Waschmaschinen \n\n0 -> Zu Haupt Menü ")
-                val inputElektronikArtikel = readln()
+                println("2 -> Artikel nach Name Sortieren")
 
-                while (inputElektronikArtikel == "1") {
+                Thread.sleep(500)
+                println("3 -> Artikel nach Preis Sortieren")
 
-                    Thread.sleep(500)
-                    println("\nTv Artikel Menü:\n")
-                    Thread.sleep(500)
-                    println("1 -> Alle Tv Artekel Ansehen")
-                    Thread.sleep(500)
-                    println("2 -> Artikel nach Name Sortieren")
-                    Thread.sleep(500)
-                    println("3 -> Artikel nach Preis Sortieren")
-                    Thread.sleep(500)
-                    println("4 -> Artikel nach Garantie Zeit Sortieren")
+                Thread.sleep(500)
+                println("4 -> Artikel nach Garantie Zeit Sortieren")
 
-                    Thread.sleep(500)
-                    println("\n0 -> Zu Elektronick Artikel")
-                    var inputTvArtikelMenu = readln()
-                    if (inputTvArtikelMenu == "1") TvArtikel(tvArtikelListe).printKompletTvListe()
-                    if (inputTvArtikelMenu == "2") Produkt(tvArtikelListe).printSortedByNameProduktList()
-                    if (inputTvArtikelMenu == "3") Produkt(tvArtikelListe).printSortedByPriceProduktList()
-                    if (inputTvArtikelMenu == "4") TvArtikel(tvArtikelListe).printSortedByZolKompletTvListe()
+                Thread.sleep(500)
+                println("\n5 -> Artikel Zu wahren korb hinzufügen ")
 
+                Thread.sleep(500)
+                println("\n0 -> Zu Elektronick Artikel")
+                val inputTvArtikelMenu = readln()
 
-                    if (inputTvArtikelMenu == "0") break
+                if (inputTvArtikelMenu == "1") TvArtikel(tvArtikelListe).printKompletTvListe()
+                if (inputTvArtikelMenu == "2") Produkt(tvArtikelListe).printSortedByNameProduktList()
+                if (inputTvArtikelMenu == "3") Produkt(tvArtikelListe).printSortedByPriceProduktList()
+                if (inputTvArtikelMenu == "4") TvArtikel(tvArtikelListe).printSortedByZolKompletTvListe()
+                if (inputTvArtikelMenu == "5") visitorShoppingCart = Visitor(visitorDataFile).produktAddToShoppingCart(tvArtikelListe)
+                if (inputTvArtikelMenu == "0") break
+                else continue
 
-                    else {
-                        continue
-                    }
+            }
 
-                }
+            //TODO: Kühlschrank
+            if (inputElektronikArtikel == "2") {
+                Thread.sleep(500)
+                println("Die Option ist noch nicht verfügbar.")
+                continue
+            }
+            if (inputElektronikArtikel == "0") break
 
-                if (inputElektronikArtikel == "2") {
-                }
-
-                if (inputElektronikArtikel == "0") break
-
-            } while (true)
         }
-
-        println("142")
+        //TODO: Mode Artikel
         if (inputHauptMenu == "2") {
+            Thread.sleep(500)
+            println("Die Option ist noch nicht verfügbar.")
+            continue
         }
 
         if (inputHauptMenu == "0") {
+            throw Exception("Sie haben Sich erfolgreich Ausgeloggt.")
         }
 
     } while (true)

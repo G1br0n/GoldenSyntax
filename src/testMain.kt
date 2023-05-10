@@ -50,7 +50,7 @@ fun main() {
     val testUserData: File = File("src/Data/UserListe/visitorListe")
 
     //User(testUserData).userLogin()
-    User(testUserData).userRegistrieren()
+    //User(testUserData).userRegistrieren()
 
 }
 
