@@ -35,7 +35,7 @@ class Visitor(visitorDataFile: File) : User(visitorDataFile) {
                         println("Sie können nicht so viele produkte hinzufügen, es sind ${produktLagerBestandListe[produktIdList.indexOf(inputIdForBy)]} Produkte dieser Art im Sortiment")
                         continue
                     }
-                    if (!shoppingCartInt.keys.contains(inputProduktNumber)) {
+                    if (!shoppingCartInt.keys.contains(inputIdForBy)) {
                         shoppingCartInt[inputIdForBy] = 0
                     }
 
@@ -65,7 +65,7 @@ class Visitor(visitorDataFile: File) : User(visitorDataFile) {
 
                         }
                         index = 0
-                        return shoppingCartInt
+                        return shoppingCart
 
                     }
 

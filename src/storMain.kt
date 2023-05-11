@@ -213,141 +213,156 @@ fun printLowInfoVisitorShoppingCart(visitorShoppingCart: MutableMap<Int,Int>):Mu
 }
 
 fun wahrenKorb(visitorShoppingCart: MutableMap<Int, Int>, visitorDataFile: File): MutableMap<Int, Int> {
+    var warenkorb = true
 
-    for (i in visitorShoppingCart.keys){
-        if(i == 0)visitorShoppingCart.remove(i)
-    }
+    do {
 
-
-
-
-
-    var currentProduktFile = File("")
-
-    val tvDataFail = File("src/Data/ArtikelListen/tvListe")
-    val fridgesDataFile = File("src/Data/ArtikelListen/fridgesListe")
-    val schuheDataFile = File("src/Data/ArtikelListen/schuheListe")
-    val rucksackDataFile = File("src/Data/ArtikelListen/rucksackListe")
-
-    var currentLagerBestandListe: MutableList<Int>
-
-    Thread.sleep(500)
-    println("\nDetails zu deinem wahren Korb:")
-
-    Thread.sleep(500)
-    printLowInfoVisitorShoppingCart(visitorShoppingCart)
-
-    for (i in visitorShoppingCart.keys) {
-        when ((i / 1000)) {
-            10 -> currentProduktFile = tvDataFail
-            11 -> currentProduktFile = fridgesDataFile
-            12 -> currentProduktFile = schuheDataFile
-            13 -> currentProduktFile = rucksackDataFile
-        }
-        currentLagerBestandListe = Produkt(currentProduktFile).returnLagerBestandList()
-        currentLagerBestandListe[Produkt(currentProduktFile).returnIdProduktList().indexOf(i)] = currentLagerBestandListe[Produkt(currentProduktFile).returnIdProduktList().indexOf(i)] + visitorShoppingCart[i]!!
-
-        val produktIdList = Produkt(currentProduktFile).returnIdProduktList()
-        val produktNameListe = Produkt(currentProduktFile).returnNameProduktList()
-        val produktPriceListe = Produkt(currentProduktFile).returnPriceProduktList()
-
-        Thread.sleep(500)
-        println("ID: $i Name: ${produktNameListe[produktIdList.indexOf(i)]} Einzel Preis: ${produktPriceListe[produktIdList.indexOf(i)]} € " +
-                "Menge ${visitorShoppingCart[i]} Preis für diese Artikel: ${produktPriceListe[produktIdList.indexOf(i)] * visitorShoppingCart[i]!!} €")
-
-        if(visitorShoppingCart[i]!! <= 1){
-            println()
+        for (i in visitorShoppingCart.keys) {
+            if (i == 0) visitorShoppingCart.remove(i)
         }
 
-    }
-    Thread.sleep(500)
-    println("\nWarenkorb Menü:")
 
-    Thread.sleep(500)
-    println("1 -> Produkte bestellen und bezahlen")
+        var currentProduktFile = File("")
 
-    Thread.sleep(500)
-    println("2 -> Produkt aus wahren Korb entfernen")
+        val tvDataFail = File("src/Data/ArtikelListen/tvListe")
+        val fridgesDataFile = File("src/Data/ArtikelListen/fridgesListe")
+        val schuheDataFile = File("src/Data/ArtikelListen/schuheListe")
+        val rucksackDataFile = File("src/Data/ArtikelListen/rucksackListe")
 
-    Thread.sleep(500)
-    println("3 -> Wahren korb Lehren")
+        var currentLagerBestandListe: MutableList<Int>
+        var inputMenge = ("").toIntOrNull()
 
-    Thread.sleep(500)
-    println("\n0 -> Zurück zu Produkte")
-
-    val inputWarenKorbMenu = readln()
-
-    if(inputWarenKorbMenu == "1"){
         Thread.sleep(500)
-        println("Deine Auftrag wurde entgegen genomen. Sie bekommen eine Rechnung per Post zusammen mit Ihre Wahre")
-        visitorShoppingCart.clear()
-        //TODO: Rechnung erstellen und absenden
-    }
-    if(inputWarenKorbMenu == "2"){
-        do {
+        println("\nDetails zu deinem wahren Korb:")
+
+        Thread.sleep(500)
+        printLowInfoVisitorShoppingCart(visitorShoppingCart)
+
+        for (i in visitorShoppingCart.keys) {
+            when ((i / 1000)) {
+                10 -> currentProduktFile = tvDataFail
+                11 -> currentProduktFile = fridgesDataFile
+                12 -> currentProduktFile = schuheDataFile
+                13 -> currentProduktFile = rucksackDataFile
+            }
+            currentLagerBestandListe = Produkt(currentProduktFile).returnLagerBestandList()
+            currentLagerBestandListe[Produkt(currentProduktFile).returnIdProduktList().indexOf(i)] =
+                currentLagerBestandListe[Produkt(currentProduktFile).returnIdProduktList()
+                    .indexOf(i)] + visitorShoppingCart[i]!!
+
+            val produktIdList = Produkt(currentProduktFile).returnIdProduktList()
+            val produktNameListe = Produkt(currentProduktFile).returnNameProduktList()
+            val produktPriceListe = Produkt(currentProduktFile).returnPriceProduktList()
+
             Thread.sleep(500)
-            println("Welches Produkt aus dem wahren Korb möchten Sie entfernen? Bitte ID eingeben\n0 -> Zu wahren Korb")
-            val inputId = readln().toIntOrNull()
-            if(inputId != null){
-                if(visitorShoppingCart.containsKey(inputId.toInt())){
-                    do {
+            println(
+                "ID: $i Name: ${produktNameListe[produktIdList.indexOf(i)]} Einzel Preis: ${
+                    produktPriceListe[produktIdList.indexOf(
+                        i
+                    )]
+                } € " +
+                        "Menge ${visitorShoppingCart[i]} Preis für diese Artikel: ${
+                            produktPriceListe[produktIdList.indexOf(
+                                i
+                            )] * visitorShoppingCart[i]!!
+                        } €"
+            )
+
+            if (visitorShoppingCart[i]!! <= 1) {
+                println()
+            }
+
+        }
+        Thread.sleep(500)
+        println("\nWarenkorb Menü:")
+
+        Thread.sleep(500)
+        println("1 -> Produkte bestellen und bezahlen")
+
+        Thread.sleep(500)
+        println("2 -> Produkt aus wahren Korb entfernen")
+
+        Thread.sleep(500)
+        println("3 -> Wahren korb Lehren")
+
+        Thread.sleep(500)
+        println("\n0 -> Zurück zu Produkte")
+
+        val inputWarenKorbMenu = readln()
+
+        if (inputWarenKorbMenu == "1") {
+            Thread.sleep(500)
+            println("Deine Auftrag wurde entgegen genomen. Sie bekommen eine Rechnung per Post zusammen mit Ihre Wahre")
+            visitorShoppingCart.clear()
+            //TODO: Rechnung erstellen und absenden
+        }
+        if (inputWarenKorbMenu == "2") {
+            do {
+                Thread.sleep(500)
+                println("Welches Produkt aus dem wahren Korb möchten Sie entfernen? Bitte ID eingeben\n0 -> Zu wahren Korb")
+                val inputId = readln().toIntOrNull()
+
+                if (inputId == 0) break
+
+                if (inputId != null) {
+                    if (visitorShoppingCart.containsKey(inputId.toInt())) {
+                        do {
+                            Thread.sleep(500)
+                            println("Bitte geben Sie die anzahl des Produktartikel den Sie entfernen möchten")
+                            inputMenge = readln().toIntOrNull()
+
+                            if (inputMenge != null && inputMenge.toInt() <= visitorShoppingCart[inputId.toInt()]!!) {
+
+                                val currentVisitorShoppingCart = mutableMapOf<Int, Int>()
+
+                                currentVisitorShoppingCart[inputId] = inputMenge.toInt()
+
+                                visitorShoppingCart[inputId] = visitorShoppingCart[inputId]!! - inputMenge.toInt()
+
+                                Visitor(visitorDataFile).produktReturnToShop(currentVisitorShoppingCart)
+
+                                Thread.sleep(500)
+                                println("$inputMenge Artikel wurden aus Ihren wahren korb entfernt")
+
+                                break
+                            } else {
+                                Thread.sleep(500)
+                                println("Die eingabe mus eine Zahl sein, oder Sie versuchen mehr Artikel zu entfernen als Sie haben")
+                                continue
+                            }
+
+                        } while (true)
+
+                    }
+                    if (!visitorShoppingCart.containsKey(inputId.toInt())) {
                         Thread.sleep(500)
-                        println("Bitte geben Sie die anzahl des Produktartikel den Sie entfernen möchten")
-                        val inputMenge = readln().toIntOrNull()
-                        if (inputMenge != null && inputMenge.toInt() <= visitorShoppingCart[inputId.toInt()]!!){
-
-                            val currentVisitorShoppingCart = mutableMapOf<Int,Int>()
-
-                            currentVisitorShoppingCart[inputId] = inputMenge.toInt()
-
-                            visitorShoppingCart[inputId] = visitorShoppingCart[inputId]!! - inputMenge.toInt()
-
-                            Visitor(visitorDataFile).produktReturnToShop(currentVisitorShoppingCart)
-
-                            Thread.sleep(500)
-                            println("$inputMenge Artikel wurden aus Ihren wahren korb entfernt")
-
-                            break
-                        } else {
-                            Thread.sleep(500)
-                            println("Die eingabe mus eine Zahl sein, oder Sie versuchen mehr Artikel zu entfernen als Sie haben")
-                            continue
-                        }
-
-                    } while (true)
+                        println("Die eingegebene ID Befindet sich nicht in deinem wahren Korb")
+                        continue
+                    }
 
                 }
-                if(!visitorShoppingCart.containsKey(inputId.toInt())){
+                if (inputId == null) {
                     Thread.sleep(500)
-                    println("Die eingegebene ID Befindet sich nicht in deinem wahren Korb")
+                    println("Die eingabe mus eine Zahl sein")
                     continue
                 }
 
-            }
-            if(inputId == null) {
-                Thread.sleep(500)
-                println("Die eingabe mus eine Zahl sein")
-                continue
-            }
+            } while (true)
 
-            if(inputId.toString() == "0"){
-                break
-            }
+        }
 
-        } while (true)
+        if (inputWarenKorbMenu == "3") {
+            Visitor(visitorDataFile).produktReturnToShop(visitorShoppingCart)
+            visitorShoppingCart.clear()
+            Thread.sleep(500)
+            println("Dein wahren Korb ist jetzt leer")
 
-    }
+        }
 
-    if(inputWarenKorbMenu == "3"){
-        Visitor(visitorDataFile).produktReturnToShop(visitorShoppingCart)
-        visitorShoppingCart.clear()
-        Thread.sleep(500)
-        println("Dein wahren Korb ist jetzt leer")
-
-    }
-
-    if(inputWarenKorbMenu == "0") {
-        return visitorShoppingCart
-    }
+        if (inputWarenKorbMenu == "0") {
+            warenkorb = false
+            return visitorShoppingCart
+        }
+    } while (warenkorb)
     return visitorShoppingCart
 }
