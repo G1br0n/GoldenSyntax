@@ -20,18 +20,24 @@ fun main() {
         var logInCheck: Boolean
         var idCheck: Int
 
-        if (input == "1") {
-            val (logInCheckInput, idCheckInput) = User(visitorDataFile).userLogin()
+        try {
+            if (input == "1") {
+                val (logInCheckInput, idCheckInput) = User(visitorDataFile).userLogin()
 
-            logInCheck = logInCheckInput
-            idCheck = idCheckInput
+                logInCheck = logInCheckInput
+                idCheck = idCheckInput
 
-            if (logInCheck) {
-                storeMainScreen(idCheck, visitorDataFile)
-                continue
+                if (logInCheck) {
+                    storeMainScreen(idCheck, visitorDataFile)
+                    continue
+                }
+
             }
-
+        }   catch (ex: Exception){
+            println(ex.message)
+            continue
         }
+
 
         try {
             if (input == "2") {
@@ -64,13 +70,16 @@ fun storeMainScreen(userIdInput: Int, visitorDataFile: File) {
     do {
         Thread.sleep(500)
         println(
-            "Willkommen im Online Shop \"GoldenSyntax\" ${
+            "\nWillkommen im Online Shop \"GoldenSyntax\" ${
                 User(visitorDataFile).userNameListe[User(visitorDataFile).userIdListe.indexOf(
                     userIdInput
                 )].replace("_", " ")
             }\n"
         )
 
+
+        Thread.sleep(500)
+        printLowInfoVisitorShoppingCart(visitorShoppingCart)
         Thread.sleep(500)
         println("Hauptmenü:\n")
 
@@ -82,9 +91,11 @@ fun storeMainScreen(userIdInput: Int, visitorDataFile: File) {
         val inputHauptMenu = readln()
 
         while (inputHauptMenu == "1") {
+            Thread.sleep(500)
+            printLowInfoVisitorShoppingCart(visitorShoppingCart)
 
             Thread.sleep(500)
-            println("\n\nElektronil Artikel:\n")
+            println("Elektronil Artikel:\n")
 
             Thread.sleep(500)
             println("Folgende Elektronik Artikel haben wir für Sie im auswahl:\n")
@@ -95,7 +106,10 @@ fun storeMainScreen(userIdInput: Int, visitorDataFile: File) {
 
             while (inputElektronikArtikel == "1") {
                 Thread.sleep(500)
-                println("\nTv Artikel Menü:\n")
+                printLowInfoVisitorShoppingCart(visitorShoppingCart)
+
+                Thread.sleep(500)
+                println("Tv Artikel Menü:\n")
 
                 Thread.sleep(500)
                 println("1 -> Alle Tv Artekel Ansehen")
@@ -119,8 +133,8 @@ fun storeMainScreen(userIdInput: Int, visitorDataFile: File) {
                 if (inputTvArtikelMenu == "1") TvArtikel(tvArtikelListe).printKompletTvListe()
                 if (inputTvArtikelMenu == "2") Produkt(tvArtikelListe).printSortedByNameProduktList()
                 if (inputTvArtikelMenu == "3") Produkt(tvArtikelListe).printSortedByPriceProduktList()
-                if (inputTvArtikelMenu == "4") TvArtikel(tvArtikelListe).printSortedByZolKompletTvListe()
-                if (inputTvArtikelMenu == "5") visitorShoppingCart = Visitor(visitorDataFile).produktAddToShoppingCart(tvArtikelListe)
+                if (inputTvArtikelMenu == "4") TvArtikel(tvArtikelListe).printSortedTabelleGarantieZeitList()
+                if (inputTvArtikelMenu == "5") visitorShoppingCart = Visitor(visitorDataFile).produktAddToShoppingCart(tvArtikelListe,visitorShoppingCart)
                 if (inputTvArtikelMenu == "0") break
                 else continue
 
@@ -143,9 +157,43 @@ fun storeMainScreen(userIdInput: Int, visitorDataFile: File) {
         }
 
         if (inputHauptMenu == "0") {
+            Visitor(visitorDataFile).produktReturnToShop(visitorShoppingCart)
             throw Exception("Sie haben Sich erfolgreich Ausgeloggt.")
         }
 
     } while (true)
 
+}
+
+fun printLowInfoVisitorShoppingCart(visitorShoppingCart: MutableMap<Int,Int>):MutableMap<Int,Int>{
+
+    var currentProduktFile: File = File("")
+
+    var tvDataFail: File = File("src/Data/ArtikelListen/tvListe")
+    var fridgesDataFile: File = File("src/Data/ArtikelListen/fridgesListe")
+    var schuheDataFile: File = File("src/Data/ArtikelListen/schuheListe")
+    var rucksackDataFile: File = File("src/Data/ArtikelListen/rucksackListe")
+
+    var totalPrice: Double = 0.0
+    var articleNumber: Int = 0
+
+    for (j in visitorShoppingCart.keys){
+        articleNumber += visitorShoppingCart[j]!!
+    }
+
+    for (i in visitorShoppingCart.keys) {
+        when ((i / 1000).toInt()) {
+            10 -> currentProduktFile = tvDataFail
+            11 -> currentProduktFile = fridgesDataFile
+            12 -> currentProduktFile = schuheDataFile
+            13 -> currentProduktFile = rucksackDataFile
+        }
+    }
+
+    for (j in visitorShoppingCart.keys){
+        totalPrice += Produkt(currentProduktFile).returnPriceProduktList()[Produkt(currentProduktFile).returnIdProduktList().indexOf(j)] * visitorShoppingCart[j]!!
+    }
+
+    println("Warenkorb: Artikelmenge $articleNumber Gesamtpreis $totalPrice €\n")
+    return visitorShoppingCart
 }

@@ -24,7 +24,6 @@ open class User(var userDataFile: File) {
         var passwordInput = ""
         var loginCounter = 0
         var idContain = false
-        var passwordCheck = false
         var passwordCounter = 0
         var loginCheck = false
 
@@ -175,9 +174,6 @@ open class User(var userDataFile: File) {
         this.userPasswordListe.add(userPassword)
         this.userAgeListe.add(userAge)
 
-
-
-        userDataFile.delete()
         var index = 0
         userDataFile.delete()
         userIdListe.forEach { _ ->
@@ -187,9 +183,6 @@ open class User(var userDataFile: File) {
         index = 0
 
     }
-
-
-
 
 }
 
