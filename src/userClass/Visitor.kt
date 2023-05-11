@@ -4,7 +4,7 @@ import produktClass.Produkt
 import java.io.File
 
 class Visitor(visitorDataFile: File) : User(visitorDataFile) {
-    private var shoppingCart: MutableMap<Int, Int> = mutableMapOf()
+
 
     fun produktAddToShoppingCart(produktDataFile: File,shoppingCart: MutableMap<Int, Int>): MutableMap<Int, Int> {
 
@@ -15,8 +15,6 @@ class Visitor(visitorDataFile: File) : User(visitorDataFile) {
 
         val wehrt4 = Produkt(produktDataFile).returnArtProduktList()
         val wehrtX = Produkt(produktDataFile).returnProduktList()
-
-
 
         do {
 
@@ -49,10 +47,7 @@ class Visitor(visitorDataFile: File) : User(visitorDataFile) {
                                     } € zu eigenen wahren Korb hinzufügt :-)"
                         )
 
-
                         produktLagerBestandListe[produktIdList.indexOf(inputIdForBy.toInt())] -= inputProduktNumber
-
-                        var sitzeOfDataFileLine = Produkt(produktDataFile).returnProduktList()[0].split(" ").size
 
                         produktDataFile.writeText("")
 
@@ -64,18 +59,20 @@ class Visitor(visitorDataFile: File) : User(visitorDataFile) {
                                     "${wehrtX[index].split(" ")[7]} " +
                                     "${wehrtX[index].split(" ")[8]}\n")
                             index++
+
                         }
                         index = 0
                         return shoppingCart
+
                     }
 
                 }
-
-
                 if (!produktIdList.contains(inputIdForBy.toInt())) {
                     println("Die eingegeben ID ist nicht in der Liste.")
                     continue
+
                 }
+
             }
             if (inputIdForBy == null) {
                 println("Die eingabe Mus ein Zahl sein!")
@@ -85,19 +82,18 @@ class Visitor(visitorDataFile: File) : User(visitorDataFile) {
         } while (true)
 
     }
-
     fun produktReturnToShop( shoppingCart: MutableMap<Int, Int>){
-        var currentProduktFile: File = File("")
+        var currentProduktFile = File("")
 
-        val tvDataFail: File = File("src/Data/ArtikelListen/tvListe")
-        val fridgesDataFile: File = File("src/Data/ArtikelListen/fridgesListe")
-        val schuheDataFile: File = File("src/Data/ArtikelListen/schuheListe")
-        val rucksackDataFile: File = File("src/Data/ArtikelListen/rucksackListe")
+        val tvDataFail = File("src/Data/ArtikelListen/tvListe")
+        val fridgesDataFile = File("src/Data/ArtikelListen/fridgesListe")
+        val schuheDataFile = File("src/Data/ArtikelListen/schuheListe")
+        val rucksackDataFile = File("src/Data/ArtikelListen/rucksackListe")
 
-        var currentLagerBestandListe = mutableListOf<Int>()
+        var currentLagerBestandListe: MutableList<Int>
 
         for (i in shoppingCart.keys) {
-            when ((i / 1000).toInt()) {
+            when ((i / 1000)) {
                 10 -> currentProduktFile = tvDataFail
                 11 -> currentProduktFile = fridgesDataFile
                 12 -> currentProduktFile = schuheDataFile
@@ -112,7 +108,6 @@ class Visitor(visitorDataFile: File) : User(visitorDataFile) {
             val wehrt4 = Produkt(currentProduktFile).returnArtProduktList()
             val wehrtX = Produkt(currentProduktFile).returnProduktList()
 
-
             var index = 0
 
             currentProduktFile.writeText("")
@@ -123,12 +118,13 @@ class Visitor(visitorDataFile: File) : User(visitorDataFile) {
                         "${wehrtX[index].split(" ")[7]} " +
                         "${wehrtX[index].split(" ")[8]}\n")
                 index++
+
             }
             index = 0
 
-
-
-
         }
+
     }
+
+
 }

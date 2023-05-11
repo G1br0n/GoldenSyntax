@@ -81,7 +81,7 @@ open class User(var userDataFile: File) {
 
     fun userRegistrieren(){
 
-        val minAge = 12
+        val minAge = 11
         var userAge = 0
         var userId = 0
         var userName = ""

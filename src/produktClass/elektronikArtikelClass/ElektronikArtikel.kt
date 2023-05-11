@@ -48,6 +48,7 @@ open class ElektronikArtikel(dateFile: File): Produkt(dateFile) {
             println("| Das ausgewählte produkt hat keine garantie zeit ")
         }
     }
+
     fun printTabelleGarantieZeitList(){
         val sortedListe = returnIdProduktList()
         val listList: MutableList<List<String>> = mutableListOf()
@@ -82,7 +83,9 @@ open class ElektronikArtikel(dateFile: File): Produkt(dateFile) {
 
         listList.toList()
         printTable(header,listList)
+
     }
+
     fun printSortedTabelleGarantieZeitList(){
         val sortedListe = returnSortedGarantieZeit()
         val listList: MutableList<List<String>> = mutableListOf()
@@ -117,6 +120,7 @@ open class ElektronikArtikel(dateFile: File): Produkt(dateFile) {
 
         listList.toList()
         printTable(header,listList)
+
     }
 
 }

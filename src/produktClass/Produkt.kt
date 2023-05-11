@@ -4,7 +4,7 @@ import java.io.File
 open class Produkt(private val dateFile: File) {
     var header: List<String> = listOf("ID", "Name", "Price", "Art", "Artikel im Lager")
 
-    var produktList: MutableList<String> = mutableListOf()
+    private var produktList: MutableList<String> = mutableListOf()
 
     var idProduktList: MutableList<Int> = mutableListOf()
     var nameProduktList:MutableList<String> = mutableListOf()
@@ -50,41 +50,41 @@ open class Produkt(private val dateFile: File) {
     }
 
     //------Return methoden mit sortierten Listen-----------------------------------------------------------------------
-    fun returnSortedByIdProduktList(): MutableList<Any> {
+    private fun returnSortedByIdProduktList(): MutableList<Any> {
         val produktDetailsListe = idProduktList.zip(nameProduktList)
         val produktIdReturnListe = mutableListOf<Any>()
-        for (id in produktDetailsListe.sortedBy() { it.first } ){
+        for (id in produktDetailsListe.sortedBy { it.first } ){
             produktIdReturnListe.add(id.first)
         }
         return produktIdReturnListe
     }
-    fun returnSortedByNameProduktList(): MutableList<Any> {
+    private fun returnSortedByNameProduktList(): MutableList<Any> {
         val produktDetailsListe = nameProduktList.zip(idProduktList)
         val produktIdReturnListe = mutableListOf<Any>()
-        for (id in produktDetailsListe.sortedBy() { it.first } ){
+        for (id in produktDetailsListe.sortedBy { it.first } ){
             produktIdReturnListe.add(id.second)
         }
         return produktIdReturnListe
     }
-    fun returnSortedByPriceProduktList(): MutableList<Any> {
+    private fun returnSortedByPriceProduktList(): MutableList<Any> {
         val produktDetailsListe: List<Pair<Double,Int>> = priceProduktList.zip(idProduktList)
         val produktIdReturnListe = mutableListOf<Any>()
 
-        for (id in produktDetailsListe.sortedBy() { it.first } ){
+        for (id in produktDetailsListe.sortedBy { it.first } ){
             produktIdReturnListe.add(id.second)
         }
         return produktIdReturnListe
     }
-    fun returnSortedByLagerBestandList(): MutableList<Any> {
+    private fun returnSortedByLagerBestandList(): MutableList<Any> {
         val produktDetailsListe = lagerBestandList.zip(idProduktList)
         val produktIdReturnListe = mutableListOf<Any>()
-        for (id in produktDetailsListe.sortedBy() { it.first } ){
+        for (id in produktDetailsListe.sortedBy { it.first } ){
             produktIdReturnListe.add(id.second)
         }
         return produktIdReturnListe
     }
 
-    //------Print methoden mit standard FataFileListe-------------------------------------------------------------------
+    //------Print methoden mit standard DataFileListe-------------------------------------------------------------------
     fun printProduktList(){
         val sortedListe = returnIdProduktList()
         val header: List<String> = this.header
@@ -168,15 +168,14 @@ open class Produkt(private val dateFile: File) {
         printTable(header,listListIntern)
     }
 
-    //------Print methode Suche nach -----------------------------------------------------------------------------------
+    //------Print Methoden ---------------------------------------------------------------------------------------------
     fun searchAndPrintProdukt(): Int{
-        var id = -1
-        var menge = 0
+        var id: Int = -1
 
         println("Bitte geben Sie die ID oder den Namen des Produkt ein, das Sie Suchen:")
-        val eingabe = readLine()
-
+        val eingabe = readlnOrNull()
         try {
+
             if (eingabe?.toIntOrNull() != null) {
                 id = eingabe.toInt()
 
@@ -185,7 +184,7 @@ open class Produkt(private val dateFile: File) {
                 }
                 if (returnIdProduktList().contains(id)) {
 
-                    var idFound: MutableList<Any> = mutableListOf(id.toString())
+                    val idFound: MutableList<Any> = mutableListOf(id.toString())
 
                     printTable(header, returnListList(idFound))
 
@@ -197,10 +196,10 @@ open class Produkt(private val dateFile: File) {
                     throw Exception("Das Produkt mit dem Name $eingabe wurde nicht gefunden")
                 }
                 if (returnNameProduktList().contains(eingabe)) {
-                    var idFound: MutableList<Any> = mutableListOf()
+                    val idFound: MutableList<Any> = mutableListOf()
                     idFound.add(returnIdProduktList()[returnNameProduktList().indexOf(eingabe)])
 
-                    var returnList = returnListList(idFound)
+                    val returnList = returnListList(idFound)
 
                     printTable(header, returnList )
 
@@ -214,11 +213,6 @@ open class Produkt(private val dateFile: File) {
         }
         return returnNameProduktList().indexOf(eingabe)
     }
-
-    //TODO: ------Produkt zum wahren Korb Hinzufügen--------------------------------------------------------------------------
-
-
-    //------ab hier private methoden------------------------------------------------------------------------------------
     fun printTable(headers: List<String>, values: List<List<String>>) {
         val columnWidths = IntArray(headers.size) { i -> headers[i].length }
 
@@ -236,8 +230,6 @@ open class Produkt(private val dateFile: File) {
         println("|")
         Thread.sleep(250)
 
-        var index = 0
-
         for ( i in values[0].indices) {
             for (j in values.indices) {
                 print("| " + values[j][i].padEnd(columnWidths[j] + 3))
@@ -246,6 +238,8 @@ open class Produkt(private val dateFile: File) {
             Thread.sleep(250)
         }
     }
+
+    //------ab hier private methoden------------------------------------------------------------------------------------
     open fun returnListList(sortedListe: MutableList<Any>):List<List<String>> {
         val listList: MutableList<List<String>> = mutableListOf()
 
