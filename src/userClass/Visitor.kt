@@ -31,7 +31,7 @@ class Visitor(visitorDataFile: File) : User(visitorDataFile) {
                     println("Was ist die Anzahl an Produkten die Sie kaufen möchten? \nBitte eine Zahl eingeben")
                     val inputProduktNumber = readln().toIntOrNull()
 
-                    if(produktLagerBestandListe[produktIdList.indexOf(inputIdForBy)] - inputProduktNumber!!.toInt() > 0){
+                    if(produktLagerBestandListe[produktIdList.indexOf(inputIdForBy)] - inputProduktNumber!!.toInt() < 0){
                         println("Sie können nicht so viele produkte hinzufügen, es sind ${produktLagerBestandListe[produktIdList.indexOf(inputIdForBy)]} Produkte dieser Art im Sortiment")
                         continue
                     }
