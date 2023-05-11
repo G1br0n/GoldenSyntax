@@ -129,5 +129,4 @@ class Visitor(visitorDataFile: File) : User(visitorDataFile) {
 
     }
 
-
 }
