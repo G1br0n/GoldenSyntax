@@ -133,6 +133,7 @@ fun storeMainScreen(userIdInput: Int, visitorDataFile: File) {
 
                 Thread.sleep(500)
                 println("\n0 -> Zu Elektronick Artikel")
+
                 val inputTvArtikelMenu = readln()
 
                 if (inputTvArtikelMenu == "1") TvArtikel(tvArtikelListe).printKompletTvListe()
@@ -213,7 +214,13 @@ fun printLowInfoVisitorShoppingCart(visitorShoppingCart: MutableMap<Int,Int>):Mu
 
 fun wahrenKorb(visitorShoppingCart: MutableMap<Int, Int>, visitorDataFile: File): MutableMap<Int, Int> {
 
-    var currentVisitorShoppingCart = visitorShoppingCart
+    for (i in visitorShoppingCart.keys){
+        if(i == 0)visitorShoppingCart.remove(i)
+    }
+
+
+
+
 
     var currentProduktFile = File("")
 
@@ -245,8 +252,8 @@ fun wahrenKorb(visitorShoppingCart: MutableMap<Int, Int>, visitorDataFile: File)
         val produktPriceListe = Produkt(currentProduktFile).returnPriceProduktList()
 
         Thread.sleep(500)
-        println("ID: $i Name: ${produktNameListe[produktIdList.indexOf(i)]} Einzel Preis: ${produktPriceListe[produktIdList.indexOf(i)]}" +
-                "Menge ${visitorShoppingCart[i]} Preis für diese Artikel: ${produktPriceListe[produktIdList.indexOf(i)] * visitorShoppingCart[i]!!}")
+        println("ID: $i Name: ${produktNameListe[produktIdList.indexOf(i)]} Einzel Preis: ${produktPriceListe[produktIdList.indexOf(i)]} € " +
+                "Menge ${visitorShoppingCart[i]} Preis für diese Artikel: ${produktPriceListe[produktIdList.indexOf(i)] * visitorShoppingCart[i]!!} €")
 
         if(visitorShoppingCart[i]!! <= 1){
             println()
@@ -279,7 +286,7 @@ fun wahrenKorb(visitorShoppingCart: MutableMap<Int, Int>, visitorDataFile: File)
     if(inputWarenKorbMenu == "2"){
         do {
             Thread.sleep(500)
-            println("Welches Produkt aus dem wahren Korb möchten Sie entfernen? Bitte ID eingeben")
+            println("Welches Produkt aus dem wahren Korb möchten Sie entfernen? Bitte ID eingeben\n0 -> Zu wahren Korb")
             val inputId = readln().toIntOrNull()
             if(inputId != null){
                 if(visitorShoppingCart.containsKey(inputId.toInt())){
@@ -289,7 +296,10 @@ fun wahrenKorb(visitorShoppingCart: MutableMap<Int, Int>, visitorDataFile: File)
                         val inputMenge = readln().toIntOrNull()
                         if (inputMenge != null && inputMenge.toInt() <= visitorShoppingCart[inputId.toInt()]!!){
 
-                            currentVisitorShoppingCart[inputId] = visitorShoppingCart[inputId]!! - inputMenge.toInt()
+                            val currentVisitorShoppingCart = mutableMapOf<Int,Int>()
+
+                            currentVisitorShoppingCart[inputId] = inputMenge.toInt()
+
                             visitorShoppingCart[inputId] = visitorShoppingCart[inputId]!! - inputMenge.toInt()
 
                             Visitor(visitorDataFile).produktReturnToShop(currentVisitorShoppingCart)
@@ -319,7 +329,10 @@ fun wahrenKorb(visitorShoppingCart: MutableMap<Int, Int>, visitorDataFile: File)
                 println("Die eingabe mus eine Zahl sein")
                 continue
             }
-        break
+
+            if(inputId.toString() == "0"){
+                break
+            }
 
         } while (true)
 
